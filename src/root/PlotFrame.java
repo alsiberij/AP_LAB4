@@ -5,7 +5,7 @@ import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.File;
+import java.io.*;
 
 public class PlotFrame extends JFrame {
 
@@ -64,7 +64,7 @@ public class PlotFrame extends JFrame {
                     fileChooser.setCurrentDirectory(new File("."));
                 }
                 if (fileChooser.showOpenDialog(PlotFrame.this) == JFileChooser.APPROVE_OPTION) {
-                    //TODO openFile(fileChooser.getSelectedFile());
+                    openFile(fileChooser.getSelectedFile());
                 }
             }
         };
@@ -93,5 +93,27 @@ public class PlotFrame extends JFrame {
         plotMenu.add(showMarkersMI);
         showMarkersMI.setSelected(false);
         plotMenu.addMenuListener(new PlotMenuListener());
+    }
+
+    protected void openFile(File file) {
+        try {
+            DataInputStream in = new DataInputStream(new FileInputStream(file));
+            Double[][] graphicsData = new Double[in.available()/(Double.SIZE / 8)/2][];
+            int i = 0;
+            while (in.available() > 0) {
+                Double x = in.readDouble();
+                Double y = in.readDouble();
+                graphicsData[i++] = new Double[] {x, y};
+            }
+            if (graphicsData != null && graphicsData.length > 0) {
+                fileLoaded = true;
+                display.showGraphics(graphicsData);
+            }
+            in.close();
+        } catch (FileNotFoundException exception) {
+            JOptionPane.showMessageDialog(PlotFrame.this, "Файл не найден", "Ошика загрузки", JOptionPane.WARNING_MESSAGE);
+        } catch (IOException exception) {
+            JOptionPane.showMessageDialog(PlotFrame.this, "Ошибка чтения координат", "Ошибка загрузки", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }

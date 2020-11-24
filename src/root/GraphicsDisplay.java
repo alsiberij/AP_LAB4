@@ -23,5 +23,13 @@ public class GraphicsDisplay extends JPanel {
 
     private Font axisFont;
 
+    public GraphicsDisplay() {
+        setBackground(Color.WHITE);
+        graphicsStroke = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10, null, 0);
+        axisStroke = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, null, 0);
+        markerStroke = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, null, 0);
+        axisFont = new Font("Serif", Font.BOLD, 36);
+    }
+
     
 }

@@ -47,7 +47,8 @@ public class PlotFrame extends JFrame {
         setExtendedState(MAXIMIZED_BOTH);
 
         constructMenu();
-        //TODO
+
+        add(display, BorderLayout.CENTER);
     }
 
     void constructMenu() {

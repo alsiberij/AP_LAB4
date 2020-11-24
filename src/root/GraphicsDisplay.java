@@ -2,6 +2,7 @@ package root;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 public class GraphicsDisplay extends JPanel {
 
@@ -46,4 +47,11 @@ public class GraphicsDisplay extends JPanel {
         repaint();
     }
 
+    protected Point2D.Double createPoint(double x, double y) {
+        double deltaX = x - xMin;
+        double deltaY = y - yMin;
+        return new Point2D.Double(deltaX * scale, deltaY * scale);
+    }
+
+    
 }

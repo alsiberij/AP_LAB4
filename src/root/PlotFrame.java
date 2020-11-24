@@ -3,6 +3,7 @@ package root;
 import javax.swing.*;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import java.awt.*;
 
 public class PlotFrame extends JFrame {
 
@@ -36,5 +37,13 @@ public class PlotFrame extends JFrame {
         }
     }
 
-    
+    public PlotFrame() {
+        super("Построение графиков функций на основе подготовленных файлов");
+        setSize(WIDTH, HEIGHT);
+        Toolkit kit = Toolkit.getDefaultToolkit();
+        setLocation((kit.getScreenSize().width - WIDTH) / 2, (kit.getScreenSize().height - HEIGHT) / 2);
+        setExtendedState(MAXIMIZED_BOTH);
+
+        //TODO
+    }
 }

@@ -1,6 +1,8 @@
 package root;
 
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 public class PlotFrame extends JFrame {
 
@@ -15,6 +17,24 @@ public class PlotFrame extends JFrame {
     private GraphicsDisplay display = new GraphicsDisplay();
 
     private boolean fileLoaded = false;
+
+    private class PlotMenuListener implements MenuListener {
+        @Override
+        public void menuSelected(MenuEvent e) {
+            showAxisMI.setEnabled(fileLoaded);
+            showMarkersMI.setEnabled(fileLoaded);
+        }
+
+        @Override
+        public void menuDeselected(MenuEvent e) {
+
+        }
+
+        @Override
+        public void menuCanceled(MenuEvent e) {
+
+        }
+    }
 
     
 }

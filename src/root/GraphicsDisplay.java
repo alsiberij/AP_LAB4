@@ -53,5 +53,11 @@ public class GraphicsDisplay extends JPanel {
         return new Point2D.Double(deltaX * scale, deltaY * scale);
     }
 
+    protected Point2D.Double shiftPoint(Point2D.Double source, double deltaX, double deltaY) {
+        Point2D.Double result = new Point2D.Double();
+        result.setLocation(source.getX() + deltaX, source.getY() + deltaY);
+        return result;
+    }
+
     
 }

@@ -36,5 +36,14 @@ public class GraphicsDisplay extends JPanel {
         repaint();
     }
 
-    
+    public void setShowAxis(boolean showAxis) {
+        this.showAxis = showAxis;
+        repaint();
+    }
+
+    public void setShowMarkers(boolean showMarkers) {
+        this.showMarkers = showMarkers;
+        repaint();
+    }
+
 }

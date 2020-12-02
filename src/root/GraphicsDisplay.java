@@ -10,7 +10,7 @@ public class GraphicsDisplay extends JPanel {
     private Double[][] graphicsData;
 
     private boolean showAxis = true;
-    private boolean showMarkers = true;
+    private boolean showMarkers = false;
 
     private double xMin;
     private double xMax;
@@ -50,7 +50,7 @@ public class GraphicsDisplay extends JPanel {
 
     protected Point2D.Double createPoint(double x, double y) {
         double deltaX = x - xMin;
-        double deltaY = y - yMin;
+        double deltaY = yMax - y;
         return new Point2D.Double(deltaX * scale, deltaY * scale);
     }
 

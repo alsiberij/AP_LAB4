@@ -27,7 +27,7 @@ public class GraphicsDisplay extends JPanel {
 
     public GraphicsDisplay() {
         setBackground(Color.WHITE);
-        graphicsStroke = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10, null, 0);
+        graphicsStroke = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 10, new float[]{10,3,6,3,6,3,10,3,3}, 0);
         axisStroke = new BasicStroke(2, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, null, 0);
         markerStroke = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10, null, 0);
         axisFont = new Font("Serif", Font.BOLD, 36);
@@ -62,7 +62,7 @@ public class GraphicsDisplay extends JPanel {
 
     protected void paintGraphics(Graphics2D canvas){
         canvas.setStroke(graphicsStroke);
-        canvas.setColor(Color.RED);
+        canvas.setColor(Color.darkGray);
         GeneralPath graphics = new GeneralPath();
         for (int i = 0; i < graphicsData.length; i++) {
             Point2D.Double point = createPoint(graphicsData[i][0], graphicsData[i][1]);
@@ -117,13 +117,28 @@ public class GraphicsDisplay extends JPanel {
         canvas.setStroke(markerStroke);
         canvas.setColor(Color.RED);
         canvas.setPaint(Color.RED);
+
+        double avg = 0;
+        for (int i = 0; i < graphicsData.length; i++) {
+            avg += graphicsData[i][1];
+        }
+        avg /= graphicsData.length;
+
         for (Double[] point : graphicsData) {
-            Ellipse2D.Double marker = new Ellipse2D.Double();
+            if (point[1] >= avg * 2) {
+                canvas.setColor(Color.RED);
+                canvas.setPaint(Color.RED);
+            } else {
+                canvas.setColor(Color.BLUE);
+                canvas.setPaint(Color.BLUE);
+            }
+
+            canvas.setStroke(markerStroke);
             Point2D.Double center = createPoint(point[0], point[1]);
-            Point2D.Double corner = shiftPoint(center, 3, 3);
-            marker.setFrameFromCenter(center, corner);
-            canvas.draw(marker);
-            canvas.fill(marker);
+            canvas.draw(new Line2D.Double(shiftPoint(center, -7, 0), shiftPoint(center, 7, 0)));
+            canvas.draw(new Line2D.Double(shiftPoint(center, 0, 7), shiftPoint(center, 0, -7)));
+            canvas.draw(new Line2D.Double(shiftPoint(center, 7, 7), shiftPoint(center, -7, -7)));
+            canvas.draw(new Line2D.Double(shiftPoint(center, -7, 7), shiftPoint(center, 7, -7)));
         }
     }
 
